@@ -1,0 +1,99 @@
+
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Citas'" [items]="['Inicio']" [active_item]="'Cita'">
+      </app-breadcrumb>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h2>
+              <strong>Lista de </strong> Citas</h2>
+          </div>
+          <div class="body">
+            <div class="materialTableHeader">
+              <div class="left">
+                <ul class="header-buttons-left ms-0">
+                  <li class="tbl-search-box">
+                    <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                    <input placeholder="Buscador" type="text" (keyup)="applyFilters($event)" class="browser-default search-field">
+                    </li>
+                  </ul>
+                </div>
+              <div class="right">
+                <ul class="tbl-export-btn">
+                  <li class="tbl-header-btn">
+                    <!-- <div class="m-l-10" matTooltip="ADD">
+                      <button mat-raised-button color="primary" (click)="crear()" >
+                      <mat-icon class="col-white">add</mat-icon>
+                      Nuevo Registro
+                      </button>
+                    </div> -->
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="table-responsive mt-3 ">
+              <table mat-table [dataSource]="paginado" class="w-100">
+                  <ng-container matColumnDef="Nº">
+                    <th mat-header-cell *matHeaderCellDef> Nº </th>
+                    <td mat-cell *matCellDef="let i = index">
+                      {{this.paginator.pageIndex === 0 ? i + 1 : 1 + i + this.paginator.pageIndex * this.paginator.pageSize}}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Estado">
+                    <th mat-header-cell *matHeaderCellDef> Estado</th>
+                    <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Medico">
+                    <th mat-header-cell *matHeaderCellDef> Medico </th>
+                    <td mat-cell *matCellDef="let element"> {{element.medico.nombre_completo}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="fecha_inicio">
+                    <th mat-header-cell *matHeaderCellDef> Fecha Inicio </th>
+                    <td mat-cell *matCellDef="let element"> 
+                      {{element.fecha_inicio | date:'dd/MM/yyyy'}}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="fecha_fin">
+                    <th mat-header-cell *matHeaderCellDef> Fecha Fin </th>
+                    <td mat-cell *matCellDef="let element">{{element.fecha_fin | date:'dd/MM/yyyy'}}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="observacion">
+                    <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+                    <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="telefono_m">
+                    <th mat-header-cell *matHeaderCellDef> Fono Medico </th>
+                    <td mat-cell *matCellDef="let element"> {{element.medico.celular}} </td>
+                  </ng-container>
+                  
+
+
+                  <!-- <ng-container matColumnDef="Acciones">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let element">
+                      <button mat-icon-button color="primary" class="me-1" (click)="editModal(element.id)" >
+                        <mat-icon matSuffix>mode</mat-icon>
+                      </button>
+                      <button mat-icon-button color="warn" (click)="delete(element.id)" >
+                        <mat-icon matSuffix>delete</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container> -->
+                  <tr mat-header-row *matHeaderRowDef="nombreColumna"></tr>
+                  <tr mat-row *matRowDef="let row; columns: nombreColumna;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[20, 10, 5]" showFirstLastButtons></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+ </section>

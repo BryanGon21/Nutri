@@ -1,0 +1,66 @@
+      <form class="register-form m-4" [formGroup]="form" (ngSubmit)="registerConsulta(form.value)" >
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Motivo</mat-label>
+            <input matInput formControlName="motivo" required>
+            <mat-error *ngIf="form.get('motivo')?.hasError('required')">
+              Motivo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Expectativas</mat-label>
+            <input matInput formControlName="expectativas" required>
+            <mat-error *ngIf="form.get('expectativas')?.hasError('required')">
+              expectativas es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Examen Fisico</mat-label>
+            <input matInput formControlName="examen_fisico" required>
+            <mat-error *ngIf="form.get('examen_fisico')?.hasError('required')">
+              Examen Fisico es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Diagnostico</mat-label>
+            <input matInput formControlName="diagnostico" required>
+            <mat-error *ngIf="form.get('diagnostico')?.hasError('required')">
+              Diagnostico es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Tratamiento</mat-label>
+            <input matInput formControlName="tratamiento" required>
+            <mat-error *ngIf="form.get('tratamiento')?.hasError('required')">
+              Tratamiento es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Observación</mat-label>
+            <input matInput formControlName="observacion" required>
+            <mat-error *ngIf="form.get('observacion')?.hasError('required')">
+              Observación es requerido
+            </mat-error>
+          </mat-form-field> 
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="example-button-row">
+              <button  type="submit" *ngIf="estado=='EN CURSO'" [disabled]="!form.valid || loading"  [class.auth-spinner]="loading"   mat-raised-button color="primary"
+              >Guardar</button>
+            </div>
+          </div>
+        </div>
+      </form>

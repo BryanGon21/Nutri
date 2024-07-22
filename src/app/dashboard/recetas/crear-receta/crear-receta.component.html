@@ -1,0 +1,166 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+          <div class="modal-about">
+          {{data.title}}
+        </div>
+      </div>
+    </div>
+      
+          <button mat-icon-button (click)="dialogRef.close()" class="modal-close-button" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        <div mat-dialog-content>
+          <form [formGroup]="form" class="m-3" (ngSubmit)="registrarReceta(form.value)"  >
+              
+           
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" required>
+                    <mat-error *ngIf="form.get('nombre')?.hasError('required')">
+                      Nombre es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Calorias</mat-label>
+                    <input matInput formControlName="calorias" required>
+                    <mat-error *ngIf="form.get('calorias')?.hasError('required')">
+                      Calorias es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Proteinas</mat-label>
+                    <input matInput formControlName="proteinas" required>
+                    <mat-error *ngIf="form.get('proteinas')?.hasError('required')">
+                      El numero de Proteinas es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Carbohidratos</mat-label>
+                    <input matInput formControlName="carbohidratos" required>
+                    <mat-error *ngIf="form.get('carbohidratos')?.hasError('required')">
+                      El numero de Carbohidratos es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                
+              </div>
+
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Grasas</mat-label>
+                    <input matInput formControlName="grasas" required>
+                    <mat-error *ngIf="form.get('grasas')?.hasError('required')">
+                      El numero de Grasas es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Ingredientes</mat-label>
+                    <input matInput formControlName="ingredientes" required>
+                    <mat-error *ngIf="form.get('ingredientes')?.hasError('required')">
+                      El numero de Ingredientes es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                
+              
+              </div>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Instrucciones</mat-label>
+                      <input matInput formControlName="instrucciones">
+                      <mat-error *ngIf="form.get('instrucciones')?.hasError('required')">
+                        Por favor ingrese una Instrucciones
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Tipo Comida</mat-label>
+                      <mat-select formControlName="tipo_comida_id">
+                        <mat-option>-- Seleccione un tipo de comida --</mat-option>
+                        <mat-option *ngFor="let comida of tipocomida" [value]="comida.id">
+                          {{comida.nombre}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="form.get('tipo_comida_id')?.hasError('required')">
+                        Por favor ingrese un tipo de comida
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  
+                  <div class="table-responsive">
+                    <table class="table table-borderless">
+                      <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Nombre </th>
+                              <th>
+                                  <div class="d-flex order-actions ">
+                                    <a mat-mini-fab color="primary" (click)="sumarUno()" >
+                                      <mat-icon>add</mat-icon>
+                                    </a>
+                                  </div>
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let basic of restricciones.controls; let i = index">
+                              <th scope="row">{{i+1}}</th>
+                             
+                              <td>
+                                  <input
+                                  type="text"
+                                  class="form-control"
+                                  [formControl]="basic.get('nombre')"
+                                  >
+                              </td>
+                              <td>
+                                <div class="d-flex order-actions">
+                                  <a mat-mini-fab class="bg-color-red" (click)="restarUno(i)" >
+                                    <mat-icon>delete</mat-icon>
+                                  </a>
+                                </div>
+                            </td>
+                          </tr>
+  
+                      </tbody>
+                    </table>
+                    </div>
+                    <div class="row mt-5 ">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <div class="example-button-row">
+                          <button
+                          type="submit"
+                          mat-button
+                          class="btn btn-primary  btn-lg"
+                          [disabled]="form.invalid"
+                        > >Guardar</button>
+                          <button type="button"  [routerLink]="'/dashboard/recetas'" mat-raised-button color="warn"  tabindex="-1">Cancelar</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <!-- {{form.value|json}} -->
+          </form>
+        </div>
+        
+    
+</div>

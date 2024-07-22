@@ -1,0 +1,41 @@
+
+  .columns-container {
+    display: flex;
+    justify-content: space-between;
+
+    .column {
+      flex: 1;
+      padding: 0 1rem;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+
+    .mat-divider {
+      border-top-color: red;
+    }
+
+  }
+
+
+  .material-cust-large-button {
+    width: 300px;
+    height: 30px;
+    
+}
+
+.material-cust-large-button2 {
+  width: 400px;
+  height: 30px;
+  
+}
+.material-cust-medium-button {
+    width: 150px;
+    height: 70px;
+    padding-top: 13px;
+}

@@ -1,0 +1,182 @@
+<div class="auth-container">
+  <div class="row auth-main">
+    <div class="col-sm-6 px-0 d-none d-sm-block">
+      <div class="left-img" style="background-image: url(../../../assets/images/nutricion.jpg); ">
+      </div>
+    </div>
+    <div class="col-sm-6 auth-form-section">
+      <div class="form-section">
+        <div class="auth-wrapper">
+          <!-- <div class="logo-container" style="margin-top: 30px; margin-left: 30px; margin-bottom: 20px;">
+              <img src="assets/images/nutrigo.svg" alt="Your Logo" class="logo" style="width: 300px; height: 150px;">
+            </div> -->
+          <h2 class="welcome-msg"> Registrarse </h2>
+          <p class="auth-signup-text text-muted">Ingrese sus datos</p>
+          <form class="validate-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput formControlName="nombres" required>
+                  @if (authForm.get('nombres')?.hasError('required')) {
+                    <mat-error>
+                      Nombres is required
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Apellido</mat-label>
+                  <input matInput formControlName="apellidos" required>
+                  <!-- <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>face</mat-icon> -->
+                  @if (authForm.get('apellidos')?.hasError('required')) {
+                    <mat-error>
+                      apellidos is required
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline" >
+                    <mat-label>Genero</mat-label>
+                    <mat-select formControlName="genero">
+                      <mat-option [value]="'MASCULINO'">MASCULINO</mat-option>
+                      <mat-option [value]="'FEMENINO'">FEMENINO</mat-option>
+                    </mat-select>
+                  @if (authForm.get('genero')?.hasError('required')) {
+                    <mat-error>
+                      Genero is required
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            <!-- </div> -->
+            <!-- <div class="row"> -->
+              <div class="col-md-8 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Fecha Nacimiento</mat-label>
+                  <input type="text" matInput [matDatepicker]="picker" formControlName="fecha_nacimiento" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  @if (authForm.get('fecha_nacimiento')?.hasError('required')) {
+                    <mat-error>
+                      Fecha de Nacimiento is required
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Ocupacion</mat-label>
+                  <input matInput formControlName="ocupacion" required>
+                  <!-- <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>face</mat-icon> -->
+                  @if (authForm.get('ocupacion')?.hasError('required')) {
+                    <mat-error>
+                      Ocupacion is required
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Celular</mat-label>
+                  <input matInput formControlName="celular" required>
+                  <!-- <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>face</mat-icon> -->
+                  @if (authForm.get('celular')?.hasError('required')) {
+                    <mat-error>
+                      Celular is required
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Residencia</mat-label>
+                  <input matInput formControlName="residencia" required>
+                  <!-- <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>face</mat-icon> -->
+                  @if (authForm.get('residencia')?.hasError('required')) {
+                    <mat-error>
+                      Residencia is required
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+
+            
+            
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Username</mat-label>
+                  <input matInput formControlName="username" required>
+                    <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>face</mat-icon>
+                    @if (authForm.get('username')?.hasError('required')) {
+                      <mat-error>
+                        Username is required
+                      </mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                      <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>mail</mat-icon>
+                      @if (authForm.get('email')?.hasError('required') || authForm.get('email')?.touched) {
+                        <mat-error>
+                          Please enter a valid email address
+                        </mat-error>
+                      }
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Password</mat-label>
+                      <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
+                        <a href="#" onClick="return false;" matSuffix (click)="hide = !hide"
+                          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon class="material-icons-two-tone color-icon m-3" matSuffix>
+                          {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </a>
+                        @if (authForm.get('password')?.hasError('required')) {
+                          <mat-error>
+                            Password is required
+                          </mat-error>
+                        }
+                      </mat-form-field>
+                    </div>
+                  </div>
+                    <div class="flex-sb-m w-full  p-b-20">
+                     
+                    </div>
+                    <div class="container-auth-form-btn">
+                      <button mat-raised-button color="primary" class="auth-form-btn" [disabled]="!authForm.valid "
+                        type="submit">
+                        Registrar
+                      </button>
+                    </div>
+                  </form>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        

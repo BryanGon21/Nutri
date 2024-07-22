@@ -1,0 +1,681 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Información'" [items]="['Inicio']" [active_item]="'Información'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-3 col-md-12">
+            <div class="card">
+              <div class="m-b-20">
+                <div class="contact-grid">
+                  <div class="profile-header bg-dark">
+                </div>
+                <img *ngIf="paciente?.img_url!==null" [src]="url+paciente?.img_url" class="user-img" alt="">
+                <img *ngIf="paciente?.img_url===null" src="assets/images/user/usrbig3.jpg" class="user-img" alt="">
+                <div class="user-name">{{paciente?.nombres}} {{paciente?.apellidos}}</div>
+                <div class="name-center">{{paciente?.ocupacion}}</div>
+                  <div class="row mt-2">
+                    <div class="col-12">
+                        <!-- <button mat-raised-button style="background-color: rgb(45, 209, 141); color: white;" >Programar consulta</button> -->
+                        <button mat-raised-button style="background-color: rgb(45, 193, 209); color: white; margin-top: 10px;" (click)="editar()" >Editar Información</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-12">
+            <div class="card p-2">
+                <div class="row">
+                    <div class="m-3 d-flex align-items-center " >
+                        <div>                            
+                            <h5>Información del paciente</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Celular</mat-label>
+                        <input matInput [value]="paciente?.celular" readonly="true" >
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Residencia</mat-label>
+                        <input matInput [value]="paciente?.residencia" readonly="true" >
+                      </mat-form-field>
+                    </div>
+                  </div>
+                    <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Correo Electronico</mat-label>
+                          <input matInput [value]="paciente?.email" readonly="true" >
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Fecha Nacimiento</mat-label>
+                          <input matInput [value]="paciente?.fecha_nacimiento|date:'dd/MM/yyyy'" readonly="true" >
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline" >
+                            <mat-label>Genero</mat-label>
+                            <input matInput [value]="paciente?.genero" readonly="true" >
+                        </mat-form-field>
+                      </div>
+                    </div>
+            </div>
+          </div>        
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3">
+                  <a style="cursor: pointer;" (click)="selectedOption='informacion'"  >
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <h6>Información</h6>
+                            <p class="text-muted">Consultas</p>
+                          </div>
+                          <h5 class="text-info"><mat-icon>medical_information</mat-icon></h5>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <a style="cursor: pointer;" (click)="selectedOption='mediciones'" >
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <h6>Mediciones</h6>
+                            <p class="text-muted">Historial de Mediciones</p>
+                          </div>
+                          <h5 class="text-warning"><mat-icon>straighten</mat-icon></h5>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <a style="cursor: pointer;" (click)="selectedOption='dietas'" >
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <h6>Plan de Dieta</h6>
+                            <p class="text-muted">Dietas diarias</p>
+                          </div>
+                          <h5 class="text-dark"><mat-icon>fastfood</mat-icon></h5>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <a style="cursor: pointer;" (click)="terminarCita()"  >
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <h6>Concluir Cita </h6>
+                            <p class="text-muted">Estado: {{paciente?.informacion?.cita?.estado}} </p>
+                          </div>
+                          <h5 class="text-success"><mat-icon>beenhere</mat-icon></h5>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <a style="cursor: pointer;" (click)="selectedOption='resultados'" >
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <h6>Resultados Bioquimicos</h6>
+                            <p class="text-muted">Pruebas de laboratorio</p>
+                          </div>
+                          <h5 class="text-success"><mat-icon>science</mat-icon></h5>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+            <div class="card p-2 ">
+                <div *ngIf="selectedOption==='informacion'" >
+                  <div class="row">
+                    <div class="col-md-6">
+                        <div class="m-3 d-flex align-items-center " >
+                            <div>                            
+                                <h5>Información de consulta</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <button class="m-3" mat-raised-button color="primary" routerLink="/dashboard/consultas/lista/{{paciente?.id}}" >
+                            <mat-icon class="col-white">list</mat-icon>
+                            Consultas anteriores
+                        </button>
+                      <button mat-raised-button class="m-3" (click)="getPDF()"  ><mat-icon>print</mat-icon>VER CONSULTAS</button>
+                    </div>
+                </div>
+                <app-crear-consultas [estado]="paciente.informacion?.cita?.estado" [consulta_id]="paciente?.informacion?.id"  [paciente_id]="paciente_id" (data)="getById()" ></app-crear-consultas>
+                </div>
+
+                <div *ngIf="selectedOption==='mediciones'"  >
+                  <div class="row">
+                    <div class="col-md-6">
+                        <div class="m-3 d-flex align-items-center " >
+                            <div>                            
+                                <h5>Mediciones</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end " >
+                      <button class="m-3" mat-raised-button color="primary" (click)="crearMedicion()" >
+                        <mat-icon class="col-white">add</mat-icon>
+                        Nuevo Registro
+                      </button>
+                    </div>
+                 </div>
+                 <div class="row m-3 ">
+                    <div class="col-md-4 ">
+                      <ol class="list-group">
+                        <h6>Fecha: {{medicion?.fecha|date:'dd/MM/yyyy'}}</h6>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">PESO ACTUAL</div>
+                            {{medicion?.peso}}
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">ALTURA</div>
+                            {{medicion?.altura}}
+                          </div>
+                        </li>
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">IMC</div>
+                            {{medicion?.imc}}                            
+                          </div>
+                        </li>
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">CIRCUNFERENCIA DE CINTURA</div>
+                            {{medicion?.circunferencia_cintura}}                            
+                          </div>
+                        </li>
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">CIRCUNFERENCIA DE CADERA</div>
+                            {{medicion?.circunferencia_caderas}}
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">PRESIÓN ARTEREAL</div>
+                            {{medicion?.presion_arterial}}                         
+                          </div>
+                        </li>
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">NIVEL DE ACTIVIDAD FÍSICA</div>
+                            {{medicion?.nivel_actividad}}                            
+                          </div>
+                        </li>
+                        <!-- <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">GLUCOSA AYUNAS</div>
+                            {{medicion?.glucosa_ayunas}}                            
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">COLESTEROL TOTAL</div>
+                            {{medicion?.colesterol_total}}                            
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">COLESTEROL DHL</div>
+                            {{medicion?.colesterol_hdl}}                            
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">COLESTEROL LDL</div>
+                            {{medicion?.colesterol_ldl}}                            
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">TRIGLICERIDOS</div>
+                            {{medicion?.colesterol_total}}                            
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">HEMOGLOBINA</div>
+                            {{medicion?.hemoglobina}}                            
+                          </div>
+                        </li> -->
+                            
+                      </ol>
+                    </div>
+                    <div class="col-md-8">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of paciente?.h_medicion; let i = index"  >
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{item.fecha| date: 'dd/MM/yyyy'}}</td>
+                            <td>
+                                <div class="d-flex">
+                                    <button mat-icon-button color="primary" (click)="getByIdMedicion(item.id)" >
+                                        <mat-icon>visibility</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="accent" (click)="editarMedicion(item.id)"  >
+                                      <mat-icon>edit</mat-icon>
+                                  </button>
+                                </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                 </div>
+                </div>
+
+                
+                <div *ngIf="selectedOption==='dietas'"  >
+                  <div class="row">
+                    <div class="col-md-6">
+                        <div class="m-3 d-flex align-items-center " >
+                            <div>                            
+                                <h5>Plan de Dieta</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end " >
+                     
+                    </div>
+                 </div>
+                 <div class="row m-3 ">
+                 
+                 <!-- tu-componente.component.html -->
+                  <!-- tu-componente.component.html -->
+                  <!-- tu-componente.component.html -->
+<form [formGroup]="datosFormulario" >
+
+  <h3>Datos del paciente</h3>
+  <mat-divider class="mat-divider"></mat-divider>
+  <!-- Campo de Nombre -->
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="nombre">
+  </mat-form-field>
+
+  <!-- Campo de Edad -->
+  <mat-form-field appearance="fill">
+    <mat-label>Edad</mat-label>
+    <input matInput type="number" formControlName="edad">
+  </mat-form-field>
+
+  <!-- Campo de Sexo -->
+  <mat-form-field appearance="fill">
+    <mat-label>Sexo</mat-label>
+    <mat-select formControlName="sexo">
+      <mat-option value="Masculino">Masculino</mat-option>
+      <mat-option value="Femenino">Masculino</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Campo de Peso -->
+  <mat-form-field appearance="fill">
+    <mat-label>Peso</mat-label>
+    <input matInput type="number" formControlName="peso">
+  </mat-form-field>
+
+  <!-- Campo de Altura -->
+  <mat-form-field appearance="fill">
+    <mat-label>Altura</mat-label>
+    <input matInput type="number" formControlName="altura">
+  </mat-form-field>
+
+  <!-- Campo de Nivel de Actividad -->
+  <mat-form-field appearance="fill">
+    <mat-label>Nivel de Actividad</mat-label>
+    <mat-select formControlName="nivel_actividad">
+      <mat-option value="Sedentario">Sedentario</mat-option>
+      <mat-option value="Ligero">Ligero</mat-option>
+      <mat-option value="Moderado">Moderado</mat-option>
+      <mat-option value="Activo">Activo</mat-option>
+      <mat-option value="Muy Activo">Muy Activo</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Campo de Circunferencia de Cintura -->
+  <mat-form-field appearance="fill">
+    <mat-label>Circunferencia de Cintura</mat-label>
+    <input matInput type="number" formControlName="circunferencia_cintura">
+  </mat-form-field>
+
+  <!-- Campo de Circunferencia de Caderas -->
+  <mat-form-field appearance="fill">
+    <mat-label>Circunferencia de Caderas</mat-label>
+    <input matInput type="number" formControlName="circunferencia_caderas">
+  </mat-form-field>
+
+  <!-- Campo de Glucosa en Ayunas -->
+  <mat-form-field appearance="fill">
+    <mat-label>Glucosa en Ayunas</mat-label>
+    <input matInput type="number" formControlName="glucosa_ayunas">
+  </mat-form-field>
+
+  <!-- Campo de Colesterol Total -->
+  <mat-form-field appearance="fill">
+    <mat-label>Colesterol Total</mat-label>
+    <input matInput type="number" formControlName="colesterol_total">
+  </mat-form-field>
+
+  <!-- Campo de Colesterol HDL -->
+  <mat-form-field appearance="fill">
+    <mat-label>Colesterol HDL</mat-label>
+    <input matInput type="number" formControlName="colesterol_hdl">
+  </mat-form-field>
+
+  <!-- Campo de Colesterol LDL -->
+  <mat-form-field appearance="fill">
+    <mat-label>Colesterol LDL</mat-label>
+    <input matInput type="number" formControlName="colesterol_ldl">
+  </mat-form-field>
+
+  <!-- Campo de Triglicéridos -->
+  <mat-form-field appearance="fill">
+    <mat-label>Triglicéridos</mat-label>
+    <input matInput type="number" formControlName="trigliceridos">
+  </mat-form-field>
+
+  <!-- Campo de Hemoglobina -->
+  <mat-form-field appearance="fill">
+    <mat-label>Hemoglobina</mat-label>
+    <input matInput type="number" formControlName="hemoglobina">
+  </mat-form-field>
+    <!-- Campo de Días -->
+    <mat-form-field appearance="fill">
+      <mat-label>Días</mat-label>
+      <input matInput type="number" formControlName="dias">
+    </mat-form-field>
+
+  <div class="columns-container">
+
+  <!-- Campo de Alergias Alimentarias -->
+  <!-- <div class="column">
+  <div formArrayName="alergias_alimentarias">
+    <h3>Alergias Alimentarias</h3>
+    <div *ngFor="let alergia of alergiasAlimentarias.controls; let i = index" [formGroupName]="i">
+      <mat-form-field appearance="fill">
+        <input matInput [formControlName]="i" placeholder="Alergia Alimentaria">
+      </mat-form-field>
+      <button mat-raised-button color="accent" (click)="eliminarAlergia(i)">Quitar</button>
+    </div>
+    <button mat-raised-button color="primary"(click)="agregarAlergia()">Agregar Alergia</button>
+  </div>
+</div> -->
+  <!-- Campo de Restricciones Dietéticas -->
+  <!-- <div class="column">
+
+  <div formArrayName="restricciones_dieteticas">
+    <h3>Restricciones Dietéticas</h3>
+    <div *ngFor="let restriccion of restriccionesDieteticas.controls; let i = index" [formGroupName]="i">
+      <mat-form-field appearance="fill">
+        <input matInput [formControlName]="i" placeholder="Restricción Dietética">
+      </mat-form-field>
+      <button mat-raised-button color="accent" (click)="eliminarRestriccion(i)">Quitar</button>
+    </div>
+    <button mat-raised-button color="primary" (click)="agregarRestriccion()">Agregar Restricción</button>
+  </div>
+</div> -->
+  <!-- Campo de Preferencias Alimenticias -->
+  <!-- <div class="column">
+  <div formArrayName="preferencias_alimenticias">
+    <h3>Preferencias Alimenticias</h3>
+    <div *ngFor="let preferencia of preferenciasAlimenticias.controls; let i = index" [formGroupName]="i">
+      <mat-form-field appearance="fill">
+        <input matInput [formControlName]="i" placeholder="Preferencia Alimenticia">
+      </mat-form-field>
+      <button mat-raised-button color="accent" (click)="eliminarPreferencia(i)">Quitar</button>
+    </div>
+    <button mat-raised-button color="primary" (click)="agregarPreferencia()">Agregar Preferencia</button>
+
+
+    
+  </div>
+</div> -->
+</div>
+<br>
+<br>
+
+<mat-divider class="mat-divider"></mat-divider>
+ <!-- Botón de Enviar -->
+ <button mat-raised-button color="primary" class="material-cust-large-button"  (click)="enviarDatos()">GENERAR PLAN DE DIETA</button>
+  
+</form>
+<hr>
+<br>
+<br>
+
+<!-- editable-diet-plan.component.html -->
+<form [formGroup]="dietPlanForm" >
+  <div formArrayName="plans">
+    <div *ngFor="let plan of plans.controls; let planIndex = index" [formGroupName]="planIndex" class="plan-container">
+     <hr>
+      <h3>Día {{ plan.get('dia').value }}</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>Calorías Totales</mat-label>
+        <input matInput formControlName="calorias_totales">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Carbohidratos Totales</mat-label>
+        <input matInput formControlName="carbohidratos_totales">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Grasas Totales</mat-label>
+        <input matInput formControlName="grasas_totales">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Proteínas Totales</mat-label>
+        <input matInput formControlName="proteinas_totales">
+      </mat-form-field>
+
+      <div formGroupName="plan_dieta" style="padding-left: 50px;">
+        <div class="meal-container" *ngFor="let mealType of ['desayuno', 'almuerzo', 'cena']">
+          <h4>{{ mealType | titlecase }}</h4>
+          <div formArrayName="{{ mealType }}">
+            <div *ngFor="let meal of plan.get('plan_dieta').get(mealType).controls; let mealIndex = index" [formGroupName]="mealIndex">
+              <mat-form-field appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombre">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Ingredientes</mat-label>
+                <textarea matInput formControlName="ingredientes"></textarea>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Instrucciones</mat-label>
+                <textarea matInput formControlName="instrucciones"></textarea>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Calorías</mat-label>
+                <input matInput formControlName="calorias">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Carbohidratos</mat-label>
+                <input matInput formControlName="carbohidratos">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Grasas</mat-label>
+                <input matInput formControlName="grasas">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Proteínas</mat-label>
+                <input matInput formControlName="proteinas">
+              </mat-form-field>
+              <button mat-raised-button color="accent" (click)="eliminarComida(planIndex, mealType, mealIndex)">Quitar {{ mealType }}</button>
+            </div>
+          </div>
+          <button mat-raised-button color="primary" (click)="agregarComida(planIndex, mealType)">Agregar {{ mealType }}</button>
+        </div>
+      </div>
+      <br>
+      <br>
+      <button mat-raised-button color="accent" class="material-cust-large-button"  (click)="eliminarPlan(planIndex)">Quitar Día</button>
+    </div>
+  </div>
+  <br>
+  <br>
+  <button mat-raised-button color="primary" class="material-cust-large-button" (click)="agregarPlan()">Agregar Día</button>
+    <br>
+    <br>
+    <br>
+    <hr>
+  <button mat-raised-button color="primary" class="material-cust-large-button2" (click)="guardarPlan()">Guardar Plan de dietas</button>
+</form>
+
+
+
+
+                  
+                                    
+
+                 </div>
+                </div>
+
+                <div *ngIf="selectedOption==='resultados'"  >
+                  <div class="row">
+                    <div class="col-md-6">
+                        <div class="m-3 d-flex align-items-center " >
+                            <div>                            
+                                <h5>Resultados Bioquimicos</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end " >
+                      <button class="m-3" mat-raised-button color="primary" (click)="crearResultado()" >
+                        <mat-icon class="col-white">add</mat-icon>
+                        Nuevo Registro
+                      </button>
+                    </div>
+                 </div>
+                 <div class="row m-3 ">
+                    <div class="col-md-4 ">
+                      <ol class="list-group">
+                        <h6>Fecha: {{resultado?.fecha|date:'dd/MM/yyyy'}}</h6>
+                            
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">GLUCOSA AYUNAS</div>
+                            {{resultado?.glucosa_ayunas}}
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">COLESTEROL TOTAL</div>
+                            {{resultado?.colesterol_total}}
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">COLESTEROL HDL</div>
+                            {{resultado?.colesterol_hdl}}
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">COLESTEROL LDL</div>
+                            {{resultado?.colesterol_ldl}}
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">TRIGLICERIDOS</div>
+                            {{resultado?.trigliceridos}}
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">HEMOGLOBINA</div>
+                            {{resultado?.hemoglobina}}
+                          </div>
+                        </li>
+
+                      </ol>
+                    </div>
+                    <div class="col-md-8">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of paciente?.h_resultados; let i = index"  >
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{item.fecha| date: 'dd/MM/yyyy'}}</td>
+                            <td>
+                                <div class="d-flex">
+                                    <button mat-icon-button color="primary" (click)="getByIdResultado(item.id)" >
+                                        <mat-icon>visibility</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="accent" (click)="editarResultado(item.id)"  >
+                                      <mat-icon>edit</mat-icon>
+                                  </button>
+                                </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                 </div>
+                </div>
+
+            </div>
+        </div>
+      </div>
+
+    </div>
+   </section>
+  
