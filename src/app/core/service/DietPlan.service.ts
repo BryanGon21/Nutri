@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DietPlanService {
-  private apiUrl = 'http://127.0.0.1:5000';
+  private apiUrl = 'https://nutriia.onrender.com';
 
   constructor(private http: HttpClient) { }
 

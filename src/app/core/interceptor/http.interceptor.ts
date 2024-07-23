@@ -14,7 +14,7 @@ export class HttpInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const excludedUrls = [
-      'http://127.0.0.1:5000/generar_plan_dieta'
+      'https://nutriia.onrender.com/generar_plan_dieta'
     ];
 
       const isExcludedUrl = excludedUrls.some(url => request.url.startsWith(url));
